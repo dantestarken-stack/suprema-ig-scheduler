@@ -21,6 +21,6 @@ jobs:
         run: |
           git config user.name "ig-scheduler"
           git config user.email "bot@fenicelab.com.br"
-          git add posted-log.json 2>/dev/null || true
+          git add posted-log.json status.json 2>/dev/null || true
           git commit -m "log: $(date -u +%FT%TZ)" 2>/dev/null || true
           git push 2>/dev/null || true

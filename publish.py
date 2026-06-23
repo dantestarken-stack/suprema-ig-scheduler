@@ -68,6 +68,9 @@ def url_for(cfg, it): return it.get("url") or f"{cfg['base_url']}/{it['file']}"
 def _sp(): return os.path.join(HERE, "posted-log.json")
 def _load(): return json.load(open(_sp())) if os.path.exists(_sp()) else {}
 def _save(s): json.dump(s, open(_sp(), "w"), indent=2, ensure_ascii=False)
+def _stp(): return os.path.join(HERE, "status.json")
+def _stload(): return json.load(open(_stp())) if os.path.exists(_stp()) else {}
+def _stsave(s): json.dump(s, open(_stp(), "w"), indent=2, ensure_ascii=False)
 
 def _due_now(cfg, window=20):
     now = datetime.now(SP_TZ); today = DOW[now.weekday()]
@@ -96,16 +99,20 @@ def cmd_run(cfg, window=20):
     token = get_token(); ig_id = os.environ.get("IG_ID") or cfg["ig_id"]
     now, today, due = _due_now(cfg, window); key_day = now.strftime("%Y-%m-%d")
     state = _load(); done = set(state.get(key_day, [])); posted = []
+    status = _stload(); day_st = status.get(key_day, {}); changed = False
     for it in due:
         key = f"{it['time']}-{it['file']}"
         if key in done: continue
         try:
             pid = publish_story(ig_id, token, url_for(cfg, it))
             print(f"OK {it['file']} -> {pid}"); done.add(key); posted.append(it['file'])
+            day_st[key] = {"state": "posted", "id": pid, "at": now.strftime("%H:%M")}; changed = True
         except Exception as e:
             print(f"ERRO {it['file']}: {e}", file=sys.stderr)
+            day_st[key] = {"state": "error", "msg": str(e)[:200], "at": now.strftime("%H:%M")}; changed = True
     if posted: state[key_day] = sorted(done); _save(state)
-    else: print("nada novo postado nesta janela.")
+    if changed: status[key_day] = day_st; _stsave(status)
+    if not posted: print("nada novo postado nesta janela.")
 
 def cmd_test(cfg, url):
     token = get_token(); ig_id = os.environ.get("IG_ID") or cfg["ig_id"]
