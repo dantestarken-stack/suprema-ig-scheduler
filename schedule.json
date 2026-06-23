@@ -1,0 +1,38 @@
+{
+  "comment": "Stories recorrentes Suprema Pizza (@asupremapizza). TZ America/Sao_Paulo. Grade: 18h Horario / 19h Produto / 20h Remarketing / 21h Feedback (Seg/Qua/Sex). base_url = projeto Vercel publico (sem SSO) que serve as midias.",
+  "timezone": "America/Sao_Paulo",
+  "ig_id": "17841447344788968",
+  "base_url": "https://suprema-stories.vercel.app",
+  "schedule": [
+    { "dow": "mon", "time": "18:00", "file": "mon-18h-horario.jpg",     "src": "1 - Segunda/1 - 18h - Horário A - Já Estamos Abertos.jpg" },
+    { "dow": "mon", "time": "19:00", "file": "mon-19h-produto.mp4",      "src": "1 - Segunda/2 - 19h - Produto - Camarão com Borda de Cheddar.mp4" },
+    { "dow": "mon", "time": "20:00", "file": "mon-20h-remarketing.mp4",  "src": "1 - Segunda/3 - 20h - Remarketing - Endowment Sua Fatia (TAKE 08).mp4" },
+    { "dow": "mon", "time": "21:00", "file": "mon-21h-feedback.jpg",     "src": "1 - Segunda/4 - 21h - Feedback - Daiana.jpg" },
+
+    { "dow": "tue", "time": "18:00", "file": "tue-18h-horario.jpg",      "src": "2 - Terça/1 - 18h - Horário B - Aguardando Seu Pedido.jpg" },
+    { "dow": "tue", "time": "19:00", "file": "tue-19h-produto.mp4",      "src": "2 - Terça/2 - 19h - Produto - Alho com Cebola Caramelizada.mp4" },
+    { "dow": "tue", "time": "20:00", "file": "tue-20h-remarketing.mp4",  "src": "2 - Terça/3 - 20h - Remarketing - Urgencia Cozinha Rodando (TAKE 07).mp4" },
+
+    { "dow": "wed", "time": "18:00", "file": "wed-18h-horario.jpg",      "src": "3 - Quarta/1 - 18h - Horário A - Já Estamos Abertos.jpg" },
+    { "dow": "wed", "time": "19:00", "file": "wed-19h-produto.mp4",      "src": "3 - Quarta/2 - 19h - Produto - Bastidores.mp4" },
+    { "dow": "wed", "time": "20:00", "file": "wed-20h-remarketing.mp4",  "src": "3 - Quarta/3 - 20h - Remarketing - Loss Aversion Alguem Pedindo (TAKE 01).mp4" },
+    { "dow": "wed", "time": "21:00", "file": "wed-21h-feedback.jpg",     "src": "3 - Quarta/4 - 21h - Feedback - Neuza.jpg" },
+
+    { "dow": "thu", "time": "18:00", "file": "thu-18h-horario.jpg",      "src": "4 - Quinta/1 - 18h - Horário B - Aguardando Seu Pedido.jpg" },
+    { "dow": "thu", "time": "19:00", "file": "thu-19h-produto.mp4",      "src": "4 - Quinta/2 - 19h - Produto - Milho, Bacon e Catupiry.mp4" },
+    { "dow": "thu", "time": "20:00", "file": "thu-20h-remarketing.mp4",  "src": "4 - Quinta/3 - 20h - Remarketing - Endowment Sua Fatia (TAKE 08).mp4" },
+
+    { "dow": "fri", "time": "18:00", "file": "fri-18h-horario.jpg",      "src": "5 - Sexta/1 - 18h - Horário A - Já Estamos Abertos.jpg" },
+    { "dow": "fri", "time": "19:00", "file": "fri-19h-produto.mp4",      "src": "5 - Sexta/2 - 19h - Produto - A Suprema.mp4" },
+    { "dow": "fri", "time": "20:00", "file": "fri-20h-remarketing.mp4",  "src": "5 - Sexta/3 - 20h - Remarketing - Urgencia Cozinha Rodando (TAKE 07).mp4" },
+    { "dow": "fri", "time": "21:00", "file": "fri-21h-feedback.jpg",     "src": "5 - Sexta/4 - 21h - Feedback - Rafael.jpg" },
+
+    { "dow": "sat", "time": "18:00", "file": "sat-18h-horario.jpg",      "src": "6 - Sábado/1 - 18h - Horário B - Aguardando Seu Pedido.jpg" },
+    { "dow": "sat", "time": "19:00", "file": "sat-19h-produto.mp4",      "src": "6 - Sábado/2 - 19h - Produto - Nutella com Morangos Frescos.mp4" },
+    { "dow": "sat", "time": "20:00", "file": "sat-20h-remarketing.mp4",  "src": "6 - Sábado/3 - 20h - Remarketing - Loss Aversion Alguem Pedindo (TAKE 01).mp4" },
+
+    { "dow": "sun", "time": "18:00", "file": "sun-18h-horario.jpg",      "src": "7 - Domingo/1 - 18h - Horário A - Já Estamos Abertos.jpg" },
+    { "dow": "sun", "time": "19:00", "file": "sun-19h-produto.mp4",      "src": "7 - Domingo/2 - 19h - Produto - Geleia de Pimenta com Queijo Brie.mp4" },
+    { "dow": "sun", "time": "20:00", "file": "sun-20h-remarketing.mp4",  "src": "7 - Domingo/3 - 20h - Remarketing - Endowment Sua Fatia (TAKE 08).mp4" }
+  ]
+}
