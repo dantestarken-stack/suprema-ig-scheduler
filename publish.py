@@ -72,14 +72,17 @@ def _stp(): return os.path.join(HERE, "status.json")
 def _stload(): return json.load(open(_stp())) if os.path.exists(_stp()) else {}
 def _stsave(s): json.dump(s, open(_stp(), "w"), indent=2, ensure_ascii=False)
 
-def _due_now(cfg, window=20):
+BEFORE_MIN = 5    # tolerancia antes do horario
+AFTER_MIN = 45    # catch-up: posta ate 45min DEPOIS do horario (absorve atraso/skip do cron do GitHub)
+def _due_now(cfg):
     now = datetime.now(SP_TZ); today = DOW[now.weekday()]
     out = []
     for it in cfg["schedule"]:
         if it["dow"] != today: continue
         hh, mm = map(int, it["time"].split(":"))
         sched = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
-        if abs((now - sched).total_seconds())/60 <= window:
+        delta = (now - sched).total_seconds()/60   # >0 = depois do horario
+        if -BEFORE_MIN <= delta <= AFTER_MIN:
             out.append(it)
     return now, today, out
 
@@ -91,13 +94,13 @@ def cmd_next(cfg):
 def cmd_dry(cfg):
     now, today, due = _due_now(cfg)
     print(f"Agora (SP): {now:%a %H:%M} | hoje={today}")
-    if not due: print("DRY: nada devido nesta janela (+/-20min)."); return
+    if not due: print(f"DRY: nada devido (janela -{BEFORE_MIN}min/+{AFTER_MIN}min)."); return
     for it in due:
         print(f"DRY: postaria [{kind_of(url_for(cfg,it))}] {it['file']}  ->  {url_for(cfg,it)}")
 
-def cmd_run(cfg, window=20):
+def cmd_run(cfg):
     token = get_token(); ig_id = os.environ.get("IG_ID") or cfg["ig_id"]
-    now, today, due = _due_now(cfg, window); key_day = now.strftime("%Y-%m-%d")
+    now, today, due = _due_now(cfg); key_day = now.strftime("%Y-%m-%d")
     state = _load(); done = set(state.get(key_day, [])); posted = []
     status = _stload(); day_st = status.get(key_day, {}); changed = False
     for it in due:
