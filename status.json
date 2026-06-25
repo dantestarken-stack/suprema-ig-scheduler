@@ -32,5 +32,12 @@
       "id": "18129509008718107",
       "at": "21:11"
     }
+  },
+  "2026-06-25": {
+    "19:00-thu-19h-produto.mp4": {
+      "state": "error",
+      "msg": "API erro: Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before im",
+      "at": "19:21"
+    }
   }
 }
