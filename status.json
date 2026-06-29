@@ -75,5 +75,12 @@
       "msg": "API erro: Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before im",
       "at": "20:16"
     }
+  },
+  "2026-06-29": {
+    "18:00-mon-18h-horario.jpg": {
+      "state": "posted",
+      "id": "18187771090378132",
+      "at": "18:06"
+    }
   }
 }
