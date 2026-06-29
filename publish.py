@@ -101,7 +101,7 @@ def cmd_dry(cfg):
 def cmd_run(cfg):
     token = get_token(); ig_id = os.environ.get("IG_ID") or cfg["ig_id"]
     now, today, due = _due_now(cfg); key_day = now.strftime("%Y-%m-%d")
-    state = _load(); done = set(state.get(key_day, [])); posted = []
+    state = _load(); done = set(state.get(key_day, [])); posted = []; errs = []
     status = _stload(); day_st = status.get(key_day, {}); changed = False
     for it in due:
         key = f"{it['time']}-{it['file']}"
@@ -113,9 +113,14 @@ def cmd_run(cfg):
         except Exception as e:
             print(f"ERRO {it['file']}: {e}", file=sys.stderr)
             day_st[key] = {"state": "error", "msg": str(e)[:200], "at": now.strftime("%H:%M")}; changed = True
+            errs.append(f"{it['file']}: {str(e)[:120]}")
     if posted: state[key_day] = sorted(done); _save(state)
     if changed: status[key_day] = day_st; _stsave(status)
-    if not posted: print("nada novo postado nesta janela.")
+    if not posted and not errs: print("nada novo postado nesta janela.")
+    if errs:
+        # falha ALTA: marca a Action vermelha + dispara alerta de email (no workflow)
+        print("::error::Suprema stories FALHARAM: " + " | ".join(errs))
+        sys.exit(1)
 
 def cmd_test(cfg, url):
     token = get_token(); ig_id = os.environ.get("IG_ID") or cfg["ig_id"]

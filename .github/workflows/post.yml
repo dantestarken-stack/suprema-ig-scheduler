@@ -14,13 +14,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Publicar stories devidos
+        id: publish
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: python3 publish.py run
-      - name: Salvar log (dedup)
+      - name: Salvar log (dedup + status)
+        if: always()
         run: |
           git config user.name "ig-scheduler"
           git config user.email "bot@fenicelab.com.br"
           git add posted-log.json status.json 2>/dev/null || true
           git commit -m "log: $(date -u +%FT%TZ)" 2>/dev/null || true
           git push 2>/dev/null || true
+      - name: Alerta de falha por email
+        if: failure()
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: Motor Suprema <${{ secrets.MAIL_USERNAME }}>
+          to: contato@fenicelab.com.br
+          subject: "⚠️ FALHA no motor de stories — Suprema Pizza"
+          body: |
+            Um ou mais stories da Suprema FALHARAM ao postar.
+
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Painel: https://suprema-stories.vercel.app
+
+            Provavel causa: token (Secret IG_TOKEN) defasado/invalido, ou midia fora do ar.
+            Acao: validar token e re-setar o Secret se preciso.
